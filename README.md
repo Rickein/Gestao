@@ -13,7 +13,6 @@ gerenciar tarefas e associa-las aos membros de sua equipe de maneira descomplica
 ## Bancos de Dados Utilizados
 
 - FireBase:  Uma plataforma de desenvolvimento de aplicativos que oferece uma variedade de serviços, incluindo banco de dados, autenticação de usuário e hospedagem
-
 - O projeto é implementado utilizando o ambiente Node.js
 
 ## Instalação
