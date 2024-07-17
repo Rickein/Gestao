@@ -1,0 +1,60 @@
+/*.inativo{
+    background-image: url('/assets/img/photo2.jpg');
+    opacity: 0.5;
+    background-size: cover;
+} */
+.d-flex{
+  display: flex;
+}
+
+.bg-times{
+  background-image: url('/public/imgs/banner3.jpg');
+}
+.table-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .table-overlay {
+    position: absolute;
+    top: -18%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+  }
+
+  .table > thead > tr > th{
+    text-transform: none;
+}
+
+.bg-c{
+  background: #efefef;
+}
+
+.header-navbar-fixed{
+  background: #f0f0f0;
+}
+
+  @media only screen and (max-width: 600px) {
+    .table-overlay{
+        top:0;
+    }
+    .btn-criar-time{
+        margin-top: 20px;
+    }
+  }
+
+  .table-overlay img {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: 0.5; /* Opacidade da imagem */
+  }
+
+.none{
+    display: none;
+}
+
+.desativado{background-color: darkgray;}

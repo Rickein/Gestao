@@ -1,0 +1,108 @@
+#main-container{
+    background: #f2f2f2;
+}
+
+.bg-atrib{
+    background-image: url('/public/imgs/banner5.jpg');
+}
+
+.descricao{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tarefa{
+   cursor: pointer; 
+   min-width: 240px;
+}
+
+.des{
+    margin-bottom: 10px;
+}
+
+.tarefa:hover{
+    border: 1px solid red;
+}
+
+.modal-footer {
+    padding: 10px 0px;
+}
+
+.card-membro{
+    width: 300px;
+    display: block;
+    flex-shrink: 0;
+    align-self: flex-start;
+    padding: 0 6px;
+    height: 100%;
+    white-space: nowrap;
+    flex: 0 0 auto; /* Evita que os cards se expandam além do seu conteúdo */
+    white-space: normal; 
+}
+
+.lista-membros{
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap; 
+    -webkit-overflow-scrolling: touch; 
+}
+
+.container-tarefas{
+    overflow-y: auto;
+    min-height: 330px;
+}
+
+.draggable-column {
+    min-height: 120px;
+}
+
+.modal-body,.bg-c{
+    background: #efefef;
+}
+
+strong{
+    margin-right: 10px;
+}
+
+.Alta{
+    color: red;
+}
+.Baixa{
+    color: blue;
+}
+.Media{
+    color: #cb8e13
+}
+
+@media only screen and (max-width: 600px) {
+
+    .cards{
+        display: flex;
+        flex-wrap: wrap;
+    }
+      
+    .btn{
+        width: 100%;
+    }
+        .mensagem {
+            max-width: 140px;
+        }
+    
+        .df{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-flex{
+            display: flex;
+        }
+
+        .container-tarefas {
+            min-height: auto;
+        }
+
+        .mt-20{
+            margin-top: 10px;
+        }
+    
+    }

@@ -1,0 +1,152 @@
+
+#Times
+#################
+
+#Verificar todos os times
+###
+GET http://localhost:8000/Api/Times HTTP/1.1
+
+
+#Verificar time especifico
+###
+GET http://localhost:8000/Api/Times/1 HTTP/1.1
+
+#Inserir novo time
+###
+POST http://localhost:8000/Api/times/novoTime
+content-type: application/json
+
+{
+"Time": "Novo Time Teste"
+}
+
+#Alterar time
+###
+PATCH http://localhost:8000/Api/times/1 HTTP/1.1
+content-type: application/json
+
+{
+"Time": { "nome_time": "Time Teste","ativo": true}
+}
+
+
+#Remover time
+###
+DELETE  http://localhost:8000/Api/times/5 HTTP/1.1
+
+
+#Colaboradores
+############################
+
+
+#Verificar todos os Colaboradores
+###
+GET http://localhost:8000/Api/Colaboradores HTTP/1.1
+
+#Verificar colaborador especifico
+###
+GET http://localhost:8000/Api/Colaboradores/1 HTTP/1.1
+
+#Inserir novo colaborador
+###
+POST http://localhost:8000/Api/colaboradores/novoColaborador HTTP/1.1
+content-type: application/json
+
+{
+  "Colaborador":{"nome_clb": "Colaborador Teste1","email_clb": "Teste@Teste.com",
+  "funcao_clb": "Testador","id_time": "3" }
+}
+
+#Alterar colaborador
+###
+PATCH http://localhost:8000/Api/Colaboradores/3 HTTP/1.1
+content-type: application/json
+
+{
+  "Colaborador":{"nome_clb": "Colaborador Alterado","email_clb": "Alterado@Teste.com",
+  "funcao_clb": "Testador Alterado","id_time": "3" }
+}
+
+#Remover Colaborador
+###
+DELETE  http://localhost:8000/Api/Colaboradores/4 HTTP/1.1
+
+
+#Tarefas
+############# 
+
+
+#Verificar todas as Tarefas
+###
+GET http://localhost:8000/Api/Tarefas HTTP/1.1
+
+#Verificar tarefa especifica
+###
+GET http://localhost:8000/Api/Tarefas/1 HTTP/1.1
+
+
+#Verificar Tarefas proximas do Prazo
+###
+GET http://localhost:8000/Api/Prazo HTTP/1.1
+
+
+#Verificar Tarefas proximas do Prazo por Equipe
+###
+GET http://localhost:8000/Api/Tarefas/Prazo/1 HTTP/1.1
+
+#Inserir nova tarefa
+###
+POST http://localhost:8000/Api/tarefas/novaTarefa HTTP/1.1
+content-type: application/json
+
+ {
+  "Tarefa" :{"solicitante_tarefa": "solicitante teste", "assunto_tarefa": "assunto teste" ,
+             "descricao_tarefa": "descricao teste", "prioridade_tarefa": "Baixa",
+             "tempo_estimado_tarefa": "01:30", "prazo_tarefa": "18/07/2024 12:00"}
+}
+
+#Alterar tarefa
+###
+PATCH  http://localhost:8000/Api/tarefas/4 HTTP/1.1
+content-type: application/json
+
+ {
+  "Tarefa" :{"solicitante_tarefa": "solicitante alterado", "assunto_tarefa": "assunto alterado" ,
+             "descricao_tarefa": "descricao alterado", "prioridade_tarefa": "Alta",
+             "tempo_estimado_tarefa": "01:30", "prazo_tarefa": "18/07/2024 13:00"}
+}
+
+#Remover tarefa
+###
+DELETE  http://localhost:8000/Api/Tarefa/4 HTTP/1.1
+
+
+#Usuarios
+############# 
+
+#Verificar todos os Logins
+###
+GET  http://localhost:8000/Api/login HTTP/1.1
+
+
+#Verificar login especifico
+###
+GET  http://localhost:8000/Api/login/1 HTTP/1.1
+
+#Criar VaLogin
+###
+POST http://localhost:8000/Api/InserirUsuario HTTP/1.1
+content-type: application/json
+
+{
+"Usuario" : {"usu_nome":"usunome","usu_email":"email","usu_senha":"senha"}
+}
+
+#Validar Login
+###
+POST http://localhost:8000/Api/login HTTP/1.1
+content-type: application/json
+
+{
+"Usuario" : {"usu_email":"email","usu_senha":"senha"}
+}

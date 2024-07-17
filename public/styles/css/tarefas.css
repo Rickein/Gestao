@@ -1,0 +1,112 @@
+#main-container{
+    background: #f0f0f0;
+}
+.filtros {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    padding: 5px 15px;
+}
+
+.bg-tarefas{
+    background-image: url('/public/imgs/banner4.jpg');
+}
+
+.btn-tarefa{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.modal-body,.bg-c{
+    background: #efefef;
+}
+
+.descricao{
+    margin-bottom: 10px;
+}
+
+.baixa,
+.media,
+.alta {
+    cursor: pointer;
+}
+
+.baixa {
+    color: #31708f;
+    background-color: #d9edf7 !important;
+}
+
+.media {
+    background-color: #fdf3e5 !important;
+    color: #efa231;
+}
+
+.alta {
+    background-color: #f9eae8 !important;
+    color: #c54736;
+}
+
+
+.nw{
+    text-wrap: nowrap;
+}
+.mensagem {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#ModalVerificarTarefa {
+    z-index: 1050;
+    /* Defina um valor adequado para a primeira modal */
+}
+
+#ModalEditarTarefa {
+    z-index: 1060;
+    /* Defina um valor maior para a segunda modal */
+}
+
+.bg-image {
+    background-position: top;
+}
+
+.modal-body {
+    overflow-y: scroll;
+    /* height: 80vh; */
+}
+
+.table>tbody>tr>td{
+    border: none;
+}
+
+.table > thead > tr > th{
+    text-transform: none;
+}
+
+table.dataTable > tbody > tr:hover {
+    background-color: #dedede !important;
+}
+
+@media only screen and (max-width: 600px) {
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.btn{
+    width: 100%;
+}
+
+    .mensagem {
+        max-width: 140px;
+    }
+
+    .df{
+        display: flex;
+        flex-direction: column;
+    }
+}

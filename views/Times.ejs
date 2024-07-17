@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor</title>
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="/public/styles/css/select2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/times.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/loader.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/oneui.css">
+    <link rel="stylesheet" href="/public/styles/css/header.css">
+</head>
+
+<body>
+    <div id="" class="header-navbar-fixed header-navbar-transparent">
+        <%- include('header.ejs') %>
+            <div class="bg-image bg-times">
+                <div class="bg-black-op">
+                    <section class="content content-full content-boxed">
+                        <div class="push-150-t push-50 text-center">
+                            <h1 class="h2 text-white push-10 fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">Gerenciamento de Times</h1>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="content content-narrow">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="block block-themed block-rounded block-bordered">
+                            <div class="block-header bg-flat-dark">
+                                <ul class="block-options">
+                                    <li>
+                                        <button class="btn-lg accordion-toggle" data-toggle="collapse" type="button"
+                                            title="Criar novo time" data-original-title="Criar novo Time"
+                                            data-parent="#form-novo-time" href="#form-novo-time"><i
+                                                class="fa fa-angle-down"></i></button>
+                                    </li>
+                                </ul>
+                                <h3 class="block-title">Novo Time</h3>
+                            </div>
+                            <div class="block-content">
+                                <div id="form-novo-time" class="panel-collapse collapse">
+                                    <form class="js-validation-bootstrap form-horizontal" action="" method="post">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label font-w600" for="val-nomeTime">Nome do
+                                                Time<span class="text-danger">*</span></label>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" id="val-nomeTime"
+                                                        name="val-nomeTime" placeholder="Nome do time">
+                                                    <span class="input-group-addon"><i class="si si-users"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 text-right btn-criar-time">
+                                                <button type="button" id="EditarTarefa" onclick="CriarTime()"
+                                                    class="block-content-full block-content-mini text-center text-white bg-success btn">
+                                                    <span class="font-w600 text-center badge-default">
+                                                        <i class="fa fa-pencil push-5-r"></i>Criar Time</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% if (Times && Times.length> 0) { %>
+                        <% Times.forEach(function(item) { %>
+                            <div class="col-lg-6">
+                                <div class="block block-themed block-rounded block-bordered animated fadeInLeft inativo"
+                                    data-toggle="appear" data-class="animated fadeInLeft">
+                                    <div class="block-header bg-flat-dark">
+                                        <ul class="block-options">
+                                            <li>
+                                                <button type="button" data-toggle="tooltip" title=""
+                                                    data-original-title="Editar Time"
+                                                    onclick="ModalAlterarTime('<%= item.id_time %>')"><i
+                                                        class="si si-pencil"></i></button>
+                                            </li>
+                                            <li>
+                                                <button type="button" data-toggle="tooltip" title=""
+                                                    data-original-title="Remover Time"
+                                                    onclick="RemoverTime('<%= item.id_time %>')"><i
+                                                        class="fa fa-times"></i></button>
+                                            </li>
+                                        </ul>
+                                        <h3 class="block-title">
+                                            <%= item.nome_time %>
+                                        </h3>
+                                    </div>
+                                    <div class="block-content <%= item.ativo ? '' : 'desativado' %> ">
+                                        <div class="form-group">
+                                            <div class="table-wrapper">
+                                                <div class="table-overlay <%= item.ativo ? 'none' : '' %>">
+                                                    <img src="/public/imgs/desabilitado.png" alt="Equipe Desabilitada"
+                                                        title="Equipe Desabilitada">
+                                                </div>
+                                                <table class="table table-vcenter">
+                                                    <thead>
+                                                        <% if (item.ativo) { %>
+                                                            <tr>
+                                                                <th>Nome</th>
+                                                                <th class="">Email</th>
+                                                                <th class="hidden-xs">Função</th>
+                                                                <th class="text-center">Ações</th>
+                                                            </tr>
+                                                            <% } %>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% if (Colaboradores && Colaboradores.length> 0) { %>
+                                                            <% Colaboradores.forEach(function(clb) { %>
+                                                                <% if (clb.id_time==item.id_time) { %>
+                                                                    <tr id='<%= clb.id_clb %>'>
+                                                                        <td name="IntegranteNome" class="font-w600">
+                                                                            <%= clb.nome_clb %>
+                                                                        </td>
+                                                                        <td name="IntegranteEmail">
+                                                                            <%= clb.email_clb %>
+                                                                        </td>
+                                                                        <td name="IntegranteFuncao" class="hidden-xs">
+                                                                            <%= clb.funcao_clb %>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <div class="btn-group d-flex">
+                                                                                <button
+                                                                                    class="btn btn-sm btn-warning push-5-r"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="Alterar Integrante"
+                                                                                    onclick="ModalAlterarIntegrante('<%= clb.id_clb %>')"><i
+                                                                                        class="fa fa-pencil"></i></button>
+                                                                                <button class="btn btn-sm btn-danger"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="Remover Integrante"
+                                                                                    onclick="RemoverIntegrante('<%= clb.id_clb %>')"><i
+                                                                                        class="fa fa-times"></i></button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% } %>
+                                                                        <% }); %>
+                                                                            <% } else { %>
+                                                                                <% } %>
+                                                                                    <tr>
+                                                                                        <td colspan="2"></td>
+                                                                                        <td class="font-w600 hidden-xs">
+                                                                                            Novo
+                                                                                            Integrante
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <div class="btn-group">
+                                                                                                <p
+                                                                                                    class="pull-left push-30-r">
+                                                                                                    &nbsp;
+                                                                                                </p>
+                                                                                                <button
+                                                                                                    class="btn btn-sm btn-success"
+                                                                                                    type="button"
+                                                                                                    data-toggle="tooltip"
+                                                                                                    title=""
+                                                                                                    data-original-title="Novo Integrante"
+                                                                                                    onclick="ModalInserirIntegrante('<%= item.id_time %>')"><i
+                                                                                                        class="fa fa-plus"></i></button>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                                <% } else { %>
+
+                                    <% } %>
+                </div>
+            </div>
+
+            <%- include('footer.ejs') %>
+    </div>
+
+
+    <div class="modal fade in" id="ModalNovoIntegrante" tabindex="-1" role="dialog"
+        aria-labelledby="ModalNovoIntegrante" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-flat-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Integrante</h3>
+                </div>
+                <div class="modal-body bg-c">
+                    <form class="form-horizontal push-5-t" action="" method="post">
+
+                        <div class="form-group">
+                            <label class="col-xs-12" for="register4-firstname">Nome</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="NovoIntegranteNome"
+                                        name="NovoIntegranteNome" placeholder="Informe o Nome" required>
+                                    <span class="input-group-addon"><i class="si si-user"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NovoIntegranteEmail">E-mail</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="email" id="NovoIntegranteEmail"
+                                        name="NovoIntegranteEmail" placeholder="Informe o E-mail" required>
+                                    <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NovoIntegranteFuncao">Função</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="NovoIntegranteFuncao"
+                                        name="NovoIntegranteFuncao" placeholder="Informe a função" required>
+                                    <span class="input-group-addon"><i class="si si-wrench"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input class="" type="hidden" id="NovoIntegranteIdEquipe" name="NovoIntegranteIdEquipe"
+                            value="">
+                    </form>
+                </div>
+                <div class="modal-footer bg-c">
+                    <div class="col-xs-12">
+                        <button type="button"
+                            class="block-content block-content-full block-content-mini text-center text-white bg-success btn"
+                            onclick="NovoIntegrante()">
+                            <span class="font-w600 text-center badge-default">
+                                <i class="fa fa-plus push-5-r"></i>Adicionar Integrante</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="ModalAlterarIntegrante" tabindex="-1" role="dialog"
+        aria-labelledby="ModalAlterarIntegrante" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-flat-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Intergrante</h3>
+                </div>
+                <div class="modal-body bg-c">
+                    <form class="form-horizontal push-5-t" action="" method="post">
+
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NomeAlterarIntegrante">Nome</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="NomeAlterarIntegrante"
+                                        name="NomeAlterarIntegrante" required>
+                                    <span class="input-group-addon"><i class="si si-user"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="EmailAlterarIntegrante">E-mail</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="email" id="EmailAlterarIntegrante"
+                                        name="EmailAlterarIntegrante" required>
+                                    <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="FuncaoAlterarIntegrante">Função</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="FuncaoAlterarIntegrante"
+                                        name="FuncaoAlterarIntegrante" required>
+                                    <span class="input-group-addon"><i class="si si-wrench"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="idEquipeAlterarIntegrante" name="idEquipeAlterarIntegrante" value="">
+                        <input type="hidden" id="idAlterarIntegrante" name="idAlterarIntegrante" value="">
+                    </form>
+                </div>
+                <div class="modal-footer bg-c">
+                    <div class="col-xs-12">
+                        <button type="button"
+                            class="block-content block-content-full block-content-mini text-center text-white bg-warning btn"
+                            onclick="AlterarIntegrante()">
+                            <span class="font-w600 text-center badge-default">
+                                <i class="fa fa-pencil push-5-r"></i>Alterar Integrante</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="ModalAlterarTime" tabindex="-1" role="dialog"
+        aria-labelledby="ModalAlterarIntegrante" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-flat-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Alterar</h3>
+                </div>
+                <div class="modal-body bg-c">
+                    <form class="form-horizontal" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="NomeTime">Nome do Time</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="NomeTime" name="NomeTime" required>
+                                    <span class="input-group-addon"><i class="si si-users"></i></span>
+                                </div>
+                            </div>
+                            <label class="col-xs-12" for="Situacao">Situação</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select class="js-select2 form-control" id="Situacao"
+                                        data-placeholder="Situação da equipe" name="Situacao" style="width: 100%;">
+                                        <option></option>
+                                        <option value="1" selected>Ativo</option>
+                                        <option value="2">Inativo</option>
+                                    </select>
+                                    <span class="input-group-addon"><i class="fa fa-warning"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="idAlterarEquipe" name="idAlterarEquipe" value="">
+                    </form>
+                </div>
+
+                <div class="modal-footer bg-c">
+                    <div class="col-xs-12">
+                        <button type="button"
+                            class="block-content block-content-full block-content-mini text-center text-white bg-warning btn"
+                            onClick="AlterarTime()">
+                            <span class="font-w600 text-center badge-default">
+                                <i class="fa fa-pencil push-5-r"></i>Alterar Time</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+<script src="/public/js/core/jquery.min.js"></script>
+<script src="/public/js/core/bootstrap.min.js"></script>
+<script src="/public/js/core/jquery.slimscroll.min.js"></script>
+<script src="/public/js/core/jquery.scrollLock.min.js"></script>
+<script src="/public/js/core/jquery.appear.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/jquery.placeholder.min.js"></script>
+<script src="/public/js/core/toastr.min.js"></script>
+<script src="/public/js/core/sweetalert2.all.min.js"></script>
+<script src="/public/js/core/select2.full.min.js"></script>
+<script src="/public/js/app.js"></script>
+<script src="/public/js/pages/times.js"></script>
+<script src="/public/js/pages/login.js"></script>
+
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "gestao",
+  "version": "1.0.0",
+  "description": "atividade da pos graduacao da fiap",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rick Goncalves Veras",
+  "license": "ISC",
+  "dependencies": {
+    "admin": "^1.4.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "firebase": "^10.12.3",
+    "firebase-admin": "^12.2.0",
+    "pg": "^8.12.0"
+  }
+}

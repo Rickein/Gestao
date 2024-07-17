@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Tarefas</title>
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="/public/styles/css/select2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/oneui.css">
+    <link rel="stylesheet" href="/public/styles/css/loader.css">
+    <link rel="stylesheet" href="/public/styles/css/gestao.css">
+    <link rel="stylesheet" href="/public/styles/css/header.css">
+</head>
+
+<body>
+
+    <div id="" class="header-navbar-fixed header-navbar-transparent">
+
+        <%- include('header.ejs') %>
+
+            <main id="main-container">
+                <div class="bg-image bg-gestao">
+                    <div class="bg-black-op">
+                        <section class="content content-full content-boxed">
+                            <div class="push-150-t push-50 text-center">
+                                <h1 class="h2 text-white push-10 fadeInDown" data-toggle="appear"
+                                    data-class="animated fadeInDown">Gestor de Times e Tarefas</h1>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="">
+                    <section class="content content-boxed overflow-hidden">
+                        <div class="row items-push-2x push-50-t nice-copy">
+                            <div class="col-sm-6 visibility-hidden" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <h3 class="h5 font-w600 text-uppercase push-5"><i
+                                        class="fa fa-cog text-primary push-5-r"></i> Como funciona
+                                </h3>
+                                <p>O sistema oferece um conjunto abrangente de ferramentas para
+                                    facilitar a organização e execução de tarefas dentro de uma organização.
+                                    Neste projeto será possivel Gerenciar novas equipes, organizar e atribuir tarefas.
+                                </p>
+                            </div>
+                            <div class="col-sm-6 visibility-hidden" data-toggle="appear" data-timeout="150"
+                                data-class="animated fadeInDown">
+                                <h3 class="h5 font-w600 text-uppercase push-5"><i
+                                        class="fa fa-heart text-city push-5-r"></i>Projeto</h3>
+                                <p>Este projeto faz parte do Tech Challenge da pos graduação em Dev Foundations da
+                                    faculdade
+                                    FIAP
+                                    onde o desafio é colocar em pratica o que foi aprendido em aula,</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="">
+                    <section class="content content-boxed">
+                        <div class="row items-push push-20-t push-20 text-center">
+                            <div class="col-sm-4 col-xs-4">
+                                <div class="h1 push-5" data-toggle="countTo" data-to='<%= Times %>'></div>
+                                <div class="font-w600 text-uppercase text-muted">Equipes</div>
+                            </div>
+                            <div class="col-sm-4 col-xs-4">
+                                <div class="h1 push-5" data-toggle="countTo" data-to="<%= Colaboradores %>"></div>
+                                <div class="font-w600 text-uppercase text-muted">Membros</div>
+                            </div>
+                            <div class="col-sm-4 col-xs-4">
+                                <div class="h1 push-5" data-toggle="countTo" data-to="<%= Tarefas %>" data-after="+">
+                                </div>
+                                <div class="font-w600 text-uppercase text-muted">Tarefas Cadastradas</div>
+                            </div>
+                            <div class="col-sm-12 push-10-t">
+                                <p class="font-w600 text-uppercase push-5"><i
+                                        class="fa fa-caret-down text-primary push-10-r"></i>Funcionalidades disponiveis
+                                    em nossos sistemas<i class="fa fa-caret-down text-primary push-10-l"></i></p>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+                <div class="bg-white">
+                </div>
+
+                <section class="content content-boxed overflow-hidden">
+                    <div class="push-50-t push-50">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <a class="block block-rounded block-link-hover2 border" href="/times">
+                                    <div
+                                        class="block-content block-content-full text-center bg-city ribbon ribbon-bookmark ribbon-crystal">
+                                        <div class="item item-2x item-circle bg-crystal-op push-20-t push-20 visibility-hidden"
+                                            data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                                            <i class="si si-users text-white-op"></i>
+                                        </div>
+                                        <div class="text-white-op">
+                                            <em>Gerenciamento de Times</em>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="font-s12 text-center push">Cadastro e gestão de times e membros
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <a class="block block-rounded block-link-hover2 border" href="/tarefas">
+                                    <div
+                                        class="block-content block-content-full text-center bg-flat ribbon ribbon-bookmark ribbon-crystal">
+                                        <div class="item item-2x item-circle bg-crystal-op push-20-t push-20 visibility-hidden"
+                                            data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                                            <i class="si si-layers text-white-op"></i>
+                                        </div>
+                                        <div class="text-white-op">
+                                            <em>Gerenciamento de Tarefas</em>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="font-s12 text-center push">Cadastro e gestão de tarefas</div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-lg-4">
+                                <a class="block block-rounded block-link-hover2" href="AtribuicaoDeTarefas">
+                                    <div
+                                        class="block-content block-content-full text-center bg-amethyst ribbon ribbon-bookmark ribbon-crystal">
+                                        <div class="item item-2x item-circle bg-crystal-op push-20-t push-20 visibility-hidden"
+                                            data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                                            <i class="fa fa-calendar-check-o text-white-op"></i>
+                                        </div>
+                                        <div class="text-white-op">
+                                            <em>Atribuição de Tarefas</em>
+                                        </div>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="font-s12 text-center push">Atribua tarefas a suas equipes e membros
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <div id="message"></div>
+            <%- include('footer.ejs') %>
+    </div>
+</body>
+
+<script src="/public/js/core/jquery.min.js"></script>
+<script src="/public/js/core/bootstrap.min.js"></script>
+<script src="/public/js/core/jquery.slimscroll.min.js"></script>
+<script src="/public/js/core/jquery.scrollLock.min.js"></script>
+<script src="/public/js/core/jquery.appear.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/jquery.placeholder.min.js"></script>
+<script src="/public/js/core/jquery-ui/jquery-ui.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/app.js"></script>
+<script src="/public/js/pages/firebase.js" type="module"></script>
+<script src="/public/js/pages/login.js"></script>
+<script>
+    jQuery(function () {
+        App.initHelpers(['appear', 'appear-countTo']);
+    });
+</script>
+<!-- <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-messaging.js"></script> -->
+<script src="/public/js/pages/firebase.js" type="module"></script>
+<script type="module">
+    import { messaging, onMessage } from '/public/js/pages/firebase.js';
+    onMessage(messaging, (payload) => {
+        console.log('Message received. ', payload);
+        document.getElementById('message').innerText = payload.notification.body;
+        if (Notification.permission === 'granted') {
+            const notificationTitle = payload.notification.title;
+            const notificationOptions = {
+                body: payload.notification.body,
+                icon: '/icons/icon-192x192.png'
+            };
+            new Notification(notificationTitle, notificationOptions);
+        }
+    });
+</script>

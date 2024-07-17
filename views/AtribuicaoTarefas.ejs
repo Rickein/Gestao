@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor</title>
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="/public/styles/css/select2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/oneui.css">
+    <link rel="stylesheet" href="/public/styles/css/datatable.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/loader.css">
+    <link rel="stylesheet" href="/public/styles/css/atribuicaoTarefas.css">
+    <link rel="stylesheet" href="/public/styles/css/header.css">
+    <link rel="stylesheet" href="/public/styles/css/toast.css">
+</head>
+
+<body>
+    <div id="" class="header-navbar-fixed header-navbar-transparent">
+        <%- include('header.ejs') %>
+            <div class="bg-image bg-atrib">
+                <div class="bg-black-op">
+                    <section class="content content-full content-boxed">
+                        <div class="push-150-t push-50 text-center">
+                            <h1 class="h2 text-white push-10 fadeInDown animated" data-toggle="appear"
+                                data-class="animated fadeInDown">Atribuição de Tarefas</h1>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <main id="main-container">
+                <div class="content content-narrow">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="block block-themed block-rounded block-bordered">
+                                <div class="block-header bg-flat-dark">
+                                    <form class="js-validation-bootstrap form-horizontal" action="" method="post">
+                                        <div class="">
+                                            <label class="col-md-4 control-label font-w600 text-white"
+                                                for="val-nomeTime">Nome do Time<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-4">
+                                                <div class="input-group">
+                                                    <select class="js-select2 form-control" id="TimeSelecionado"
+                                                        data-placeholder="Selecione o Time" name="Time"
+                                                        style="width: 100%;">
+                                                        <option></option>
+                                                        <% Times.forEach(e=> { %>
+                                                            <option value='<%= e.id_time %>'>
+                                                                <%= e.nome_time %>
+                                                            </option>
+                                                            <% }) %>
+                                                    </select>
+                                                    <span class="input-group-addon"><i class="si si-users"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 text-right mt-20">
+                                                <button type="button" id="PesquisarTimeBtn" onclick="PesquisarTime()"
+                                                    class="block-content-full block-content-mini text-center text-white bg-success btn">
+                                                    <span class="font-w600 text-center badge-default">
+                                                        <i class="fa fa-pencil push-5-r"></i>Pesquisar Time</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="block block-themed block-rounded block-bordered accordion-toggle">
+                                <div class="block-header bg-flat-dark">
+                                    <h3 class="block-title">Tarefas</h3>
+                                </div>
+                                <% var tarefasEmAberto=[] %>
+                                    <% Tarefas ? tarefasEmAberto=Tarefas.filter(t=> t.situacao_tarefa == "Em Aberto" && t.id_time == null) : "" %>
+                                        <% if (tarefasEmAberto.length> 0 ) { %>
+                                            <div class="block-content container-tarefas" style="background: #ebebeb;">
+                                                <div class="js-draggable-items">
+                                                    <div class="draggable-column" id="Tarefas">
+                                                        <% tarefasEmAberto.forEach(t=> { %>
+                                                            <div class="block draggable-item"
+                                                            id="tarefa<%= t.id_tarefa %>" id-tarefa ="<%= t.id_tarefa %>">
+                                                                <div class="col-lg-12 col-xs-12 push-10-t">
+                                                                    <span
+                                                                        class="draggable-handler text-gray pull-right"><i
+                                                                            class="si si-cursor-move"></i></span>
+                                                                </div>
+                                                                <div class="block block-content block-content-full clearfix block-bordered tarefa"
+                                                                    onclick="AbreTarefa('<%= t.id_tarefa %>')" title="Clique para Verificar informações da tarefa">
+                                                                    <div class="col-lg-12 col-xs-12">
+                                                                        <div
+                                                                            class="fa fa-2x fa-flag pull-left <%= t.prioridade_tarefa === 'Baixa' ? 'text-modern' : t.prioridade_tarefa === 'Media' ? 'text-warning' : t.prioridade_tarefa === 'Alta' ? 'text-city' : '' %>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-xs-12 push-10-t">
+                                                                        <div class="font-w600 descricao">
+                                                                            <%= t.assunto_tarefa %>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <% }) %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } else { %>
+                                                <div class="block-content container-tarefas" style="background: #ebebeb;">
+                                                    <div class="js-draggable-items">
+                                                        <div class="draggable-column" id="Tarefas">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+                            </div>
+                        </div>
+
+
+                        <% function timeToSeconds(time) {
+                            if (!time) return 0;
+                            const [hours, minutes, seconds] = time.split(':').map(Number);
+                            return hours * 3600 + minutes * 60 + (seconds || 0);
+                        }
+                        
+                        function secondsToTime(seconds) {
+                            const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
+                            const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+                            const secs = (seconds % 60).toString().padStart(2, '0');
+                            return `${hours}:${minutes}:${secs}`;
+                        }
+                        
+                        function sumTimes(time1, time2) {
+                            const totalSeconds = timeToSeconds(time1) + timeToSeconds(time2);
+                            return secondsToTime(totalSeconds);
+                        }%>
+
+                        <div class="col-sm-3 col-lg-3"></div>
+                        <div class="col-sm-8 col-lg-8">
+                            <div class="block block-themed block-rounded block-bordered">
+                                <div class="block-header bg-flat-dark">
+                                    <h3 class="block-title">
+                                        <%= Time ? Time.nome_time : 'Selecione o Time' %>
+                                    </h3>
+                                </div>
+                                <div class="block-content content" style="background: #ebebeb;">
+                                    <div class="lista-membros">
+                                        <% if (Colaboradores && Colaboradores.length> 0) { %>
+                                            <% Colaboradores.forEach(c=> { %>
+                                                <% if (Time && Time.id_time==c.id_time) { %>
+
+                                                  <% var horasAlocadas = [] %>
+
+                                                    <li class="card-membro">
+                                                        <div class="block block-themed block-rounded block-bordered">
+                                                            <div
+                                                                class="block-content block-content-full block-content-mini text-white bg-smooth-darker">
+                                                                <h3 class="block-title">
+                                                                    <%= c.nome_clb %>
+                                                                </h3>
+                                                            </div>
+                                                            <div
+                                                                class="block-content border-b js-draggable-items border">
+                                                                <div class="draggable-column ui-sortable"
+                                                                    id="membro<%= c.id_clb %>" nome="<%= c.nome_clb %>"
+                                                                     id-clb="<%= c.id_clb %>,<%= c.id_time %>">
+                                                                    <% var tarefasAssociadas=[] %>
+                                                                        <% Tarefas ?
+                                                                            tarefasAssociadas=Tarefas.filter(t=>
+                                                                            t.id_clb == c.id_clb && t.situacao_tarefa === "Em Aberto") : "" %>
+                                                                            <% tarefasAssociadas.forEach(ta=> { %>
+
+                                                                        <% horasAlocadas.push(ta.tempo_estimado_tarefa) %>
+                                                                                <div class="block draggable-item"
+                                                                                    id="tarefa<%= ta.id_tarefa %>" id-tarefa ="<%= ta.id_tarefa %>"
+                                                                                    style="opacity: 1;">
+                                                                                    <div
+                                                                                        class="col-lg-12 col-xs-12 push-10-t">
+                                                                                        <span
+                                                                                            class="draggable-handler text-gray pull-right ui-sortable-handle"><i
+                                                                                            class="si si-cursor-move"></i></span>
+                                                                                    </div>
+                                                                                    <div class="block block-content block-content-full clearfix block-bordered tarefa"
+                                                                                        onclick="AbreTarefa('<%= ta.id_tarefa %>')" title="Clique para Verificar informações da tarefa">
+                                                                                        <div
+                                                                                            class="col-lg-12 col-xs-12">
+                                                                                            <div
+                                                                                                class="fa fa-2x fa-flag pull-left <%= ta.prioridade_tarefa === 'Baixa' ? 'text-modern' : ta.prioridade_tarefa === 'Media' ? 'text-warning' : ta.prioridade_tarefa === 'Alta' ? 'text-city' : '' %>">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="col-lg-12 col-xs-12 push-10-t">
+                                                                                            <div
+                                                                                                class="font-w600 descricao">
+                                                                                                <%= ta.assunto_tarefa %>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <% }) %>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="block-content block-content-full block-content-mini text-white bg-smooth-darker">
+                                                                <h3 class="pull-left block-title push-10-r">Horas Alocadas:
+                                                                </h3>
+
+                                                               <%  var totalHorasAlocadas = horasAlocadas.reduce((total, c) => {
+                                                                    return sumTimes(total, c);
+                                                                }, '00:00:00');
+                                                                %>
+
+                                                                <h3 class="block-title" id="clbHorasAlocadas <%= c.id_clb %>"> <%= totalHorasAlocadas %></h3>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <% } %>
+                                                        <% }) %>
+                                                            <% } else { %>
+
+                                                                <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+    </div>
+
+    <div class="modal" id="ModalVerificarTarefa" tabindex="-1" role="dialog" aria-labelledby="ModalVerificarTarefa"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout modal-lg" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-flat-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Tarefa</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="content content-boxed">
+                        <div class="row cards">
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="si si-user text-smooth-dark"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Solicitante</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-smooth-dark">
+                                        <span id="ConsultaSolicitante"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i id="flag" class="fa fa fa-flag text-city"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Prioridade</p>
+                                    </div>
+                                    <div id="cardFlag"
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-city">
+                                        <span id="ConsultaPrioridade"
+                                            class="font-w600 text-uppercase text-center badge-default">Alta</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="fa fa-hourglass-end text-amethyst"></i>
+                                        </div>
+                                        <p class="text-center push-20-t nw">Tempo Estimado</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center bg-amethyst text-white">
+                                        <span id="ConsultaTempoEstimado"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="fa fa-calendar-check-o text-flat"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Prazo</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-flat">
+                                        <span id="ConsultaPrazo"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content">
+                                        <h3 id="ConsultaAssunto" class="block-title"></h3>
+                                    </div>
+                                    <div class="block-content des" id="ConsultaDescricao">
+                                        <p id="ConsultaDescricao"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 animated fadeInDown" data-toggle="appear">
+                                <div class="block">
+                                    <div class="col-xs-6 col-sm-6">
+                                        <div class="block text-center">
+                                            <ul class="list list-simple list-li-clearfix bg-c">
+                                                <li>
+                                                    <div class="item item-circle  pull-left">
+                                                        <i class="si si-users text-default"></i>
+                                                    </div>
+                                                    <div class="df">
+                                                        <h5 class="push-10-t">Equipe Responsavel</h5>
+                                                        <div id="ConsultaEquipe" class="font-s13"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6">
+                                        <div class="block text-center">
+                                            <ul class="list list-simple list-li-clearfix bg-c">
+                                                <li>
+                                                    <div class="item item-circle  pull-left">
+                                                        <i class="si si-info text-default"></i>
+                                                    </div>
+                                                    <div class="df">
+                                                        <h5 class="push-10-t">Situação da Tarefa</h5>
+                                                        <div id="ConsultaSituacao" class="font-s13"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div hidden id="ConsultaIdTarefa"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-xs-12 modal-flex">
+                                <button type="button" id="EditarTarefa" onclick="ArquivarTarefa()"
+                                    class="block-content block-content-full block-content-mini text-center text-white bg-warning btn">
+                                    <span class="font-w600 text-uppercase text-center badge-default">
+                                        <i class="fa fa-fw fa-folder-open push-5-r"></i>Arquivar</span>
+                                </button>
+
+                                <button type="button" id="EditarTarefa" onclick="ConcluirTarefa()"
+                                    class="block-content block-content-full block-content-mini text-center text-white bg-success btn">
+                                    <span class="font-w600 text-uppercase text-center badge-default">
+                                        <i class="si si-emoticon-smile push-5-r"></i>Concluir</span>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script src="/public/js/core/jquery.min.js"></script>
+<script src="/public/js/core/bootstrap.min.js"></script>
+<script src="/public/js/core/jquery.slimscroll.min.js"></script>
+<script src="/public/js/core/jquery.scrollLock.min.js"></script>
+<script src="/public/js/core/jquery.appear.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/jquery.placeholder.min.js"></script>
+<script src="/public/js/core/toastr.min.js"></script>
+<script src="/public/js/core/sweetalert2.all.min.js"></script>
+<script src="/public/js/core/select2.full.min.js"></script>
+<script src="/public/js/core/jquery-ui/jquery-ui.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/app.js"></script>
+<script src="/public/js/pages/atribuicaoTarefas.js"></script>
+<script src="/public/js/pages/login.js"></script>
+</html>

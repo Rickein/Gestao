@@ -1,0 +1,26 @@
+.menu-user{
+    left: auto !important;
+}
+.menu-user li a:hover{
+    background: #363636 !important;
+}
+.text-white{
+    color: white !important;
+}
+
+.btn-user{
+    color: #545454;
+    background-color: #2c343f;
+    border-color: #2c343f;
+}
+
+.si-logout{
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .menu-user{
+        left: -24% !important;
+        background-color: #3e4a59 !important;
+    }
+  }

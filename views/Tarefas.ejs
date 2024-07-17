@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor</title>
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+    <link rel="stylesheet" href="/public/styles/css/select2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="/public/styles/css/toastr.min.css">
+    <link rel="stylesheet" href="/public/styles/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/public/styles/css/bootstrap-datetimepicker.min.css">
+
+    <link rel="stylesheet" href="/public/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/oneui.css">
+    <link rel="stylesheet" href="/public/styles/css/datatable.css">
+    <link rel="stylesheet" id="css-main" href="/public/styles/css/loader.css">
+    <link rel="stylesheet" href="/public/styles/css/tarefas.css">
+    <link rel="stylesheet" href="/public/styles/css/header.css">
+</head>
+
+<body>
+    <div id="" class="header-navbar-fixed header-navbar-transparent">
+
+        <%- include('header.ejs') %>
+
+            <div class="bg-image bg-tarefas">
+                <div class="bg-black-op">
+                    <section class="content content-full content-boxed">
+                        <div class="push-150-t push-50 text-center">
+                            <h1 class="h2 text-white push-10 fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">Gerenciamento de Tarefas</h1>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <main id="main-container">
+                <div class="content content-narrow">
+                    <div class="row">
+                        <div class="col-sm-5 col-lg-3">
+                            <div class="block block-themed block-rounded block-bordered accordion-toggle">
+                                <div class="block-header bg-flat-dark">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button class="btn-lg" id="btn-filtros" data-toggle="collapse" type="button"
+                                                data-parent="#form-filtros" href="#form-filtros"><i
+                                                    class="fa fa-angle-down"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">Filtros</h3>
+                                </div>
+                                <div class="block-content">
+                                    <div class="panel-collapse collapse" id="form-filtros">
+                                        <form>
+                                            <ul class="nav nav-pills nav-stacked push">
+                                                <li>Prioridades</li>
+                                                <li class="filtros">
+                                                    <div>
+                                                        <i class="fa fa-fw fa-flag push-5-r text-info"></i> Baixa
+                                                    </div>
+                                                    <div>
+                                                        <span class="pull-right">
+                                                            <label class="css-input css-checkbox css-checkbox-primary">
+                                                                <input type="checkbox" id="checkBoxBaixa"
+                                                                    <%=Prioridades.includes('Baixa') ? 'checked' : ''
+                                                                    %>>
+                                                                <span class=""></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="filtros">
+                                                    <div>
+                                                        <i class="fa fa-fw fa-flag push-5-r text-warning"></i> Média
+                                                    </div>
+                                                    <div>
+                                                        <span class="pull-right">
+                                                            <label class="css-input css-checkbox css-checkbox-primary">
+                                                                <input type="checkbox" id="checkBoxMedia"
+                                                                    <%=Prioridades.includes('Media') ? 'checked' : ''
+                                                                    %>>
+                                                                <span class=""></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="filtros">
+                                                    <div>
+                                                        <i class="fa fa-fw fa-flag  push-5-r text-danger"></i> Alta
+                                                    </div>
+                                                    <div>
+                                                        <span class="pull-right">
+                                                            <label class="css-input css-checkbox css-checkbox-primary">
+                                                                <input type="checkbox" id="checkBoxAlta"
+                                                                    <%=Prioridades.includes('Alta') ? 'checked' : '' %>>
+                                                                <span class=""></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="push-10-t">
+                                                    Outros Filtros
+                                                </li>
+                                                <li class="filtros">
+                                                    <div>
+                                                        <i class="fa fa-fw fa-trophy text-warning push-5-r"></i>
+                                                        Concluidos
+                                                    </div>
+                                                    <div>
+                                                        <span class="pull-right">
+                                                            <label class="css-input css-checkbox css-checkbox-primary">
+                                                                <input type="checkbox" id="checkBoxConcluido"
+                                                                    <%=Filtros.includes('Concluido') ? 'checked' : ''
+                                                                    %>>
+                                                                <span class=""></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="filtros">
+                                                    <div>
+                                                        <i
+                                                            class="fa fa-fw fa-exclamation-triangle push-5-r text-danger"></i>
+                                                        Em Aberto
+                                                    </div>
+                                                    <div>
+                                                        <span class="pull-right">
+                                                            <label class="css-input css-checkbox css-checkbox-primary">
+                                                                <input type="checkbox" id="checkBoxEmAberto"
+                                                                    <%=Filtros.includes('Em Aberto') ? 'checked' : ''
+                                                                    %>>
+                                                                <span class=""></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="filtros">
+                                                    <div>
+                                                        <i class="fa fa-fw fa-folder-open text-warning push-5-r"></i>
+                                                        Arquivados
+                                                    </div>
+                                                    <div>
+                                                        <span class="pull-right">
+                                                            <label class="css-input css-checkbox css-checkbox-primary">
+                                                                <input type="checkbox" id="checkBoxArquivado"
+                                                                    <%=Filtros.includes('Arquivado') ? 'checked' : ''
+                                                                    %>>
+                                                                <span class=""></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="push-20-t">
+                                                    <button type="button" onclick="AplicarFiltros();"
+                                                        class="btn-block btn-rounded block-content block-content-full block-content-mini text-center text-white bg-flat btn">
+                                                        <span
+                                                            class="font-w600 text-uppercase text-center badge-default">Pesquisar</span>
+                                                    </button>
+
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 col-lg-9">
+                            <div class="block block-themed block-rounded block-bordered">
+                                <div class="block-header bg-flat-dark">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" class="btn" onclick="AbrirNovaTarefa()">
+                                                <i class="fa fa-plus pull-right push-5-r"></i>
+                                                <span class="hidden-xs">Nova Tarefa</span></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">Tarefas</h3>
+                                </div>
+                                <div class="block-content">
+                                    <div class="pull-r-l">
+                                        <table
+                                            class="table table-hover table-hover table-vcenter table-responsive animated fadeIn"
+                                            data-toggle="appear" id="table-1" data-class="animated fadeIn">
+
+                                            <% function formatarData(data) { const
+                                                dia=String(data.getDate()).padStart(2, '0' ); const
+                                                mes=String(data.getMonth() + 1).padStart(2, '0' ); const
+                                                ano=data.getFullYear(); return `${dia}/${mes}/${ano}`; } %>
+
+                                                <% function formatarHora(hora) { const [horaPart,
+                                                    minutoPart]=hora.split(':'); return `${horaPart}h${minutoPart}min`;
+                                                    } %>
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Solicitante</th>
+                                                            <th>Assunto</th>
+                                                            <th class="hidden-xs">Prazos</th>
+                                                            <th class="hidden-xs">Prioridade</th>
+                                                            <th class="hidden-xs">Tempo Estimado</th>
+                                                            <th>Situação</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% Tarefas.forEach(e=> { %>
+                                                            <tr class="<%= e.prioridade_tarefa.toLowerCase() %>"
+                                                                type="button"
+                                                                onclick="ModalAbrirTarefa('<%= e.id_tarefa%>')">
+                                                                <td
+                                                                    class="solicitante font-w600 text-center text-primary-dark">
+                                                                    <%= e.solicitante_tarefa%>
+                                                                </td>
+                                                                <td class="assunto">
+                                                                    <div class="font-w600 text-primary-dark">
+                                                                        <p class="strong mensagem">
+                                                                            <%= e.assunto_tarefa%>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="text-muted push-5-t visible-lg">
+                                                                        <p class="mensagem">
+                                                                            <%= e.descricao_tarefa%>
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="prazo visible-lg">
+                                                                    <div class="font-w600 text-primary-dark visible-lg">
+                                                                        <strong class="mensagem">Prazo</strong>
+                                                                    </div>
+                                                                    <div class="text-muted push-5-t">
+                                                                        <p class="mensagem">
+                                                                            <%=e.prazo_tarefa%>
+                                                                        </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="prioridade hidden-xs">
+                                                                    <i class="fa fa-exclamation-triangle push-5-r"></i>
+                                                                    <%= e.prioridade_tarefa%>
+                                                                </td>
+                                                                <td class="tempo text-primary-dark visible-lg">
+                                                                    <em>
+                                                                        <%=formatarHora(e.tempo_estimado_tarefa)%>
+                                                                    </em>
+                                                                </td>
+                                                                <td class="text-center situacao">
+                                                                    <em>
+                                                                        <%= e.situacao_tarefa%>
+                                                                    </em>
+                                                                </td>
+                                                            </tr>
+                                                            <% }) %>
+                                                    </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <%- include('footer.ejs') %>
+    </div>
+
+    <div class="modal fade in" id="ModalNovaTarefa" tabindex="0" role="dialog" aria-labelledby="ModalNovaTarefa"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-flat-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="modal" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Nova Tarefa</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="FormNovaTarefa" class="form-horizontal push-5-t" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="SolicitanteNovo">Solicitante</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="SolicitanteNovo" name="SolicitanteNovo"
+                                        placeholder="Informe o Solicitante" required>
+                                    <span class="input-group-addon"><i class="si si-user"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="AssuntoNovo">Assunto</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="AssuntoNovo" name="AssuntoNovo"
+                                        placeholder="Informe o Assunto" required>
+                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="DescricaoNovo">Descrição</label>
+                            <div class="col-xs-12">
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control col-xs-12" rows="6" id="DescricaoNovo"
+                                        name="DescricaoNovo" placeholder="Informe a Descricao" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="PrioridadeNovo">Prioridade</label>
+
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select class="js-select2 form-control" id="PrioridadeNovo"
+                                        data-placeholder="Informe a Prioridade" name="NovoPrioridadeNovo"
+                                        style="width: 100%;">
+                                        <option></option>
+                                        <option value="Baixa">Baixa</option>
+                                        <option value="Media">Média</option>
+                                        <option value="Alta">Alta</option>
+                                    </select>
+                                    <span class="input-group-addon"><i class="fa fa-warning"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="TempoEstimadoNovo">Tempo Estimado</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="js-masked-time form-control" type="text" id="TempoEstimadoNovo"
+                                        name="TempoEstimado" placeholder="00:00">
+                                    <span class="input-group-addon"><i class="fa fa-hourglass-end"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="PrazoNovo">Prazo</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="js-datetimepicker form-control" type="text" id="PrazoNovo"
+                                        name="PrazoNovo" placeholder="Informe o prazo Final">
+                                    <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <div class="col-xs-12">
+
+                            <button type="button" type="button" onclick="NovaTarefa()"
+                                class="block-content block-content-full block-content-mini text-center text-white bg-success btn">
+                                <span class="font-w600 text-uppercase text-center badge-default">
+                                    <i class="fa fa-plus push-5-r"></i>Adicionar Tarefa</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="ModalVerificarTarefa" tabindex="-1" role="dialog" aria-labelledby="ModalVerificarTarefa"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout modal-lg" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-flat-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Tarefa</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="content content-boxed">
+                        <div class="row cards">
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="si si-user text-smooth-dark"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Solicitante</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-smooth-dark">
+                                        <span id="ConsultaSolicitante"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i id="flag" class="fa fa fa-flag text-city"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Prioridade</p>
+                                    </div>
+                                    <div id="cardFlag"
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-city">
+                                        <span id="ConsultaPrioridade"
+                                            class="font-w600 text-uppercase text-center badge-default">Alta</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="fa fa-hourglass-end text-amethyst"></i>
+                                        </div>
+                                        <p class="text-center push-20-t nw">Tempo Estimado</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center bg-amethyst text-white">
+                                        <span id="ConsultaTempoEstimado"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content border-b text-center">
+                                        <div class="item item-circle border">
+                                            <i class="fa fa-calendar-check-o text-flat"></i>
+                                        </div>
+                                        <p class="text-center push-20-t">Prazo</p>
+                                    </div>
+                                    <div
+                                        class="block-content block-content-full block-content-mini text-center text-white bg-flat">
+                                        <span id="ConsultaPrazo"
+                                            class="font-w600 text-uppercase text-center badge-default"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 animated fadeInDown" data-toggle="appear"
+                                data-class="animated fadeInDown">
+                                <div class="block block-bordered block-rounded block-link-hover3">
+                                    <div class="block-content">
+                                        <h3 id="ConsultaAssunto" class="block-title"></h3>
+                                    </div>
+                                    <div class="block-content descricao" id="ConsultaDescricao">
+                                        <p id="ConsultaDescricao"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 animated fadeInDown" data-toggle="appear">
+                                <div class="block">
+                                    <div class="col-xs-6 col-sm-6">
+                                        <div class="block text-center">
+                                            <ul class="list list-simple list-li-clearfix bg-c">
+                                                <li>
+                                                    <div class="item item-circle  pull-left">
+                                                        <i class="si si-users text-default"></i>
+                                                    </div>
+                                                    <div class="df">
+                                                        <h5 class="push-10-t">Equipe Responsavel</h5>
+                                                        <div id="ConsultaEquipe" class="font-s13"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6">
+                                        <div class="block text-center">
+                                            <ul class="list list-simple list-li-clearfix bg-c">
+                                                <li>
+                                                    <div class="item item-circle  pull-left">
+                                                        <i class="si si-info text-default"></i>
+                                                    </div>
+                                                    <div class="df">
+                                                        <h5 class="push-10-t">Situação da Tarefa</h5>
+                                                        <div id="ConsultaSituacao" class="font-s13"></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div hidden id="ConsultaIdTarefa"></div>
+                        </div>
+                        <div class="col-xs-12 btn-tarefa">
+                            <button type="button" type="button" onclick="RemoverTarefa()"
+                                class="block-content-full block-content-mini text-center text-white bg-danger btn">
+                                <span class="font-w600 text-center badge-default">
+                                    <i class="si si-close push-5-r"></i>Remover Tarefa</span>
+                            </button>
+                            <button type="button" id="EditarTarefa" onclick="ModalEditarTarefa()"
+                                class="block-content-full block-content-mini text-center text-white bg-warning btn pull-right">
+                                <span class="font-w600 text-center badge-default">
+                                    <i class="fa fa-pencil push-5-r"></i>Alterar Tarefa</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="ModalEditarTarefa" tabindex="1" role="dialog" aria-labelledby="ModalEditarTarefa"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content block block-themed block-rounded block-bordered">
+                <div class="block-header bg-flat-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Alterar Tarefa</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="FormNovaTarefa" class="form-horizontal push-5-t" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-xs-12" for="Solicitante">Solicitante</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="SolicitanteEditar"
+                                        name="SolicitanteEditar" placeholder="Informe o Solicitante" required>
+                                    <span class="input-group-addon"><i class="si si-user"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="Assunto">Assunto</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="AssuntoEditar" name="AssuntoEditar"
+                                        placeholder="Informe o Assunto" required>
+                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="DescricaoEditar">Descrição</label>
+                            <div class="col-xs-12">
+                                <div class="input-group col-xs-12">
+                                    <textarea class="form-control col-xs-12" rows="6" id="DescricaoEditar"
+                                        name="DescricaoEditar" placeholder="Informe a Descricao" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="PrioridadeEditar">Prioridade</label>
+
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <select class="form-control select2-selection select2-selection--single"
+                                        id="PrioridadeEditar" data-placeholder="Informe a Prioridade" name="Prioridade"
+                                        style="width: 100%;">
+                                        <option value="Baixa">Baixa</option>
+                                        <option value="Media">Média</option>
+                                        <option value="Alta">Alta</option>
+                                    </select>
+                                    <span class="input-group-addon"><i class="fa fa-warning"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="TempoEstimadoEditar">Tempo Estimado</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="js-masked-time form-control" type="text" id="TempoEstimadoEditar"
+                                        name="TempoEstimado" placeholder="00:00">
+                                    <span class="input-group-addon"><i class="fa fa-hourglass-end"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12" for="PrazoEditar">Prazo</label>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <input class="js-datetimepicker form-control" type="text" id="PrazoEditar"
+                                        name="Prazo" placeholder="Informe o prazo Final">
+                                    <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input class="" type="hidden" id="idTarefaEditar" name="idTarefaEditar" value="">
+                    </form>
+                </div>
+                <div class="modal-footer bg-c">
+                    <div class="col-xs-12">
+                        <button type="button" type="button" onclick="EditarTarefa()"
+                            class="block-content block-content-full block-content-mini text-center text-white bg-warning btn">
+                            <span class="font-w600 text-center badge-default">
+                                <i class="fa fa-pencil push-5-r"></i>Alterar Tarefa</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="/public/js/core/jquery.min.js"></script>
+<script src="/public/js/core/bootstrap.min.js"></script>
+<script src="/public/js/core/jquery.slimscroll.min.js"></script>
+<script src="/public/js/core/jquery.scrollLock.min.js"></script>
+<script src="/public/js/core/jquery.appear.min.js"></script>
+<script src="/public/js/core/jquery.countTo.min.js"></script>
+<script src="/public/js/core/jquery.placeholder.min.js"></script>
+<script src="/public/js/core/toastr.min.js"></script>
+<script src="/public/js/core/sweetalert2.all.min.js"></script>
+<script src="/public/js/core/select2.full.min.js"></script>
+<script src="/public/js/core/jquery.maskedinput.min.js"></script>
+<script src="/public/js/core/datetimepicker/moment.min.js"></script>
+<script src="/public/js/core/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="/public/js/core/datetimepicker/pt-br.js"></script>
+<script src="/public/js/app.js"></script>
+<script src="/public/js/core/dataTable2.0/pt-bt.json"></script>
+<script src="/public/js/core/dataTable2.0/datatable.js"></script>
+<script src="/public/js/pages/tarefas.js"></script>
+<script src="/public/js/pages/login.js"></script>
