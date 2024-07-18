@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const session = require("express-session");
 const { geraSessao } = require("./src/scripts/GeraSessao");
 const cors = require('cors');
+const swaggerUI = require("swagger-ui-express");
+const swaggerDocument = require('./src/swagger.json');
 
 const app = express();
 app.use(cookieParser());
@@ -18,7 +20,7 @@ app.use(session({
 }));
 
 app.use(cors({
-    origin: '*', // Permite todas as origens. Ajuste conforme necessário.
+    origin: '*',
     methods: 'GET,POST',
     allowedHeaders: 'Content-Type'
 }));
@@ -69,6 +71,8 @@ app.post('/save-fcm-token', (req, res) => {
         res.status(400).send('FCM token não fornecido.');
     }
 });
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 const port = 8000;
 app.listen(port, () => {

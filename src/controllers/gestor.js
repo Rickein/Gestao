@@ -6,7 +6,7 @@ const admin = require('../database/firebaseAdmin');
 async function telaInicial(req, res) {
     const usuario = req.cookies.usuario;
     if (!usuario) {
-        return res.render('login'); // Verifique se 'login.ejs' está no diretório correto
+        return res.render('login'); 
     }
     
     const tarefas = (await _consultaTarefas()).length;
@@ -25,7 +25,6 @@ async function telaInicial(req, res) {
 
         try {
             const response = await admin.messaging().send(message);
-            console.log('Mensagem enviada com sucesso:', response);
         } catch (error) {
             console.error('Erro ao enviar mensagem:', error);
         }

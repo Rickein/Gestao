@@ -1,0 +1,1529 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Gestor Online",
+        "descripition": "Documentação de atividade do curso de pós-graduação em Dev Foundations da FIAP",
+        "version": "1.0.0"
+    },
+    "basePatch": "/",
+    "paths": {
+        "/api/times/": {
+            "get": {
+                "summary": "Obtém a lista de times",
+                "description": "Retorna uma lista de todos os times.",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a lista de times",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "description": "O identificador único do usuário",
+                                            "example": 1
+                                        },
+                                        "nome_time": {
+                                            "type": "string",
+                                            "description": "O nome do usuário",
+                                            "example": "João da Silva"
+                                        },
+                                        "ativo": {
+                                            "type": "boolean",
+                                            "description": "situacao da conta do usuario",
+                                            "example": "true"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time do Usuario",
+                                            "example": "1"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Times"
+                ]
+            }
+        },
+        "/api/times/{id}": {
+            "get": {
+                "summary": "Obtém um time por ID",
+                "description": "Retorna os detalhes de um time com o ID especificado.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do usuário a ser obtido"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter o usuário por ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "description": "O identificador único do usuário",
+                                            "example": 1
+                                        },
+                                        "nome_time": {
+                                            "type": "string",
+                                            "description": "O nome do usuário",
+                                            "example": "João da Silva"
+                                        },
+                                        "ativo": {
+                                            "type": "boolean",
+                                            "description": "situacao da conta do usuario",
+                                            "example": "true"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time do Usuario",
+                                            "example": "1"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Time não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "sem resultados"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Times"
+                ]
+            },
+            "patch": {
+                "summary": "Alterar Time por ID",
+                "description": "alterar time existente no sistema.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do time a a ser alterado"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Time": {
+                                        "type": "object",
+                                        "properties": {
+                                            "nome_time": {
+                                                "type": "string",
+                                                "description": "O nome do usuário",
+                                                "example": "João da Silva"
+                                            },
+                                            "ativo": {
+                                                "type": "boolean",
+                                                "description": "situacao da conta do usuario",
+                                                "example": "true"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Time alterado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "time alterado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Times"
+                ]
+            },
+            "delete": {
+                "summary": "Remover time por ID",
+                "description": "Remover time com o ID fornecido.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do time a a ser alterado"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Time removido com Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "removido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Erro ao remover Time",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Mensagem de erro"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Times"
+                ]
+            }
+        },
+        "/api/times/novoTime": {
+            "post": {
+                "summary": "Inserir novo Time",
+                "description": "VInserir novo Timea ao sistema.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Time": {
+                                        "type": "string",
+                                        "description": "Nome do Time"
+                                    }
+                                },
+                                "required": [
+                                    "Time"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Time inserido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "time inserido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Times"
+                ]
+            }
+        },
+        "/api/colaboradores": {
+            "get": {
+                "summary": "Obtém a lista de Colaboradores",
+                "description": "Retorna uma lista de todos os Colaboradores.",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a lista de Colaboradores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id_clb": {
+                                            "type": "string",
+                                            "description": "ID do colaborador",
+                                            "example": "1"
+                                        },
+                                        "nome_clb": {
+                                            "type": "string",
+                                            "description": "O nome do colaborador",
+                                            "example": "João da Silva"
+                                        },
+                                        "funcao_clb": {
+                                            "type": "string",
+                                            "description": "Funcao do colaborador",
+                                            "example": "Analista"
+                                        },
+                                        "email_clb": {
+                                            "type": "string",
+                                            "description": "Email do colaborador",
+                                            "example": "JP@Email.com"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time do colaborador",
+                                            "example": "1"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Colaboradores"
+                ]
+            }
+        },
+        "/api/colaboradores/{id}": {
+            "get": {
+                "summary": "Obtém um colaborador por ID",
+                "description": "Retorna os detalhes de um colaborador com o ID especificado.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do usuário a ser obtido"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter o usuário por ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id_clb": {
+                                            "type": "string",
+                                            "description": "ID do colaborador",
+                                            "example": "1"
+                                        },
+                                        "nome_clb": {
+                                            "type": "string",
+                                            "description": "O nome do colaborador",
+                                            "example": "João da Silva"
+                                        },
+                                        "funcao_clb": {
+                                            "type": "string",
+                                            "description": "Funcao do colaborador",
+                                            "example": "Analista"
+                                        },
+                                        "email_clb": {
+                                            "type": "string",
+                                            "description": "Email do colaborador",
+                                            "example": "JP@Email.com"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time do colaborador",
+                                            "example": "1"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Colaborador não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "sem resultados"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Colaboradores"
+                ]
+            },
+            "patch": {
+                "summary": "Alterar Colaborador por ID",
+                "description": "Colaborador time existente no sistema.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do Colaborador a ser alterado"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Colaborador": {
+                                        "type": "object",
+                                        "properties": {
+                                            "nome_clb": {
+                                                "type": "string",
+                                                "description": "O nome do colaborador",
+                                                "example": "João da Silva"
+                                            },
+                                            "funcao_clb": {
+                                                "type": "string",
+                                                "description": "Funcao do colaborador",
+                                                "example": "Analista"
+                                            },
+                                            "email_clb": {
+                                                "type": "string",
+                                                "description": "Email do colaborador",
+                                                "example": "JP@Email.com"
+                                            },
+                                            "id_time": {
+                                                "type": "string",
+                                                "description": "ID Time do colaborador",
+                                                "example": "1"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Colaborador alterado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "Colaborador alterado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Colaboradores"
+                ]
+            },
+            "delete": {
+                "summary": "Remover Colaborador por ID",
+                "description": "Remover Colaborador com o ID fornecido.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do Colaborador a ser alterado"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Colaborador removido com Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "removido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Erro ao remover Colaborador",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Mensagem de erro"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Colaboradores"
+                ]
+            }
+        },
+        "/api/colaboradores/novoColaborador": {
+            "post": {
+                "summary": "Inserir novo Colaborador",
+                "description": "Inserir novo Colaborador ao sistema.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Colaborador": {
+                                        "type": "object",
+                                "properties": {
+                                    "nome_clb": {
+                                        "type": "string",
+                                        "description": "O nome do colaborador",
+                                        "example": "João da Silva"
+                                    },
+                                    "funcao_clb": {
+                                        "type": "string",
+                                        "description": "Funcao do colaborador",
+                                        "example": "Analista"
+                                    },
+                                    "email_clb": {
+                                        "type": "string",
+                                        "description": "Email do colaborador",
+                                        "example": "JP@Email.com"
+                                    },
+                                    "id_time": {
+                                        "type": "string",
+                                        "description": "ID Time do colaborador",
+                                        "example": "1"
+                                    }
+                                }
+                            }
+                        },
+                                "required": [
+                                    "nome_clb",
+                                    "email_clb",
+                                    "id_time",
+                                    "funcao_clb"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Colaborador inserido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "Colaborador inserido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Colaboradores"
+                ]
+            }
+        },
+        "/api/tarefas": {
+            "get": {
+                "summary": "Obtém a lista de tarefas",
+                "description": "Retorna uma lista de todos as tarefas.",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a lista de tarefas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id_tarefa": {
+                                            "type": "integer",
+                                            "description": "O identificador único da tarefa",
+                                            "example": 1
+                                        },
+                                        "situacao_tarefa.": {
+                                            "type": "string",
+                                            "description": "A situacao da tarefa",
+                                            "example": "Em Aberto"
+                                        },
+                                        "id_clb": {
+                                            "type": "string",
+                                            "description": "ID do Colaborador associado a Tarefa",
+                                            "example": "1"
+                                        },
+                                        "descricao_tarefa": {
+                                            "type": "string",
+                                            "description": "Descrição da Tarefa",
+                                            "example": "Escreva a Descrição Aqui"
+                                        },
+                                        "prioridade_tarefa": {
+                                            "type": "string",
+                                            "description": "Prioridade da tarefa",
+                                            "example": "Alta"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time que a tarefa esta associada",
+                                            "example": "1"
+                                        },
+                                        "solicitante_tarefa": {
+                                            "type": "string",
+                                            "description": "Nome do Solicitante da tarefa",
+                                            "example": "Roberto"
+                                        },
+                                        "assunto_tarefa": {
+                                            "type": "string",
+                                            "description": "assunto da Tarefa",
+                                            "example": "Assunto"
+                                        },
+                                        "prazo_tarefa": {
+                                            "type": "string",
+                                            "description": "prazo para entregar a tarefa",
+                                            "example": "12/07/2024"
+                                        },
+                                        "tempo_estimado_tarefa": {
+                                            "type": "string",
+                                            "description": "Tempo estimado do tempo de execução da tarefa",
+                                            "example": "02:15"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Tarefas"
+                ]
+            }
+        },
+        "/api/tarefas/{id}": {
+            "get": {
+                "summary": "Obtém uma tarefa por ID",
+                "description": "Retorna os detalhes de uma Tarefa com o ID especificado.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID da Tarefa a ser obtida"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a Tarefa por ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id_tarefa": {
+                                            "type": "integer",
+                                            "description": "O identificador único da tarefa",
+                                            "example": 1
+                                        },
+                                        "situacao_tarefa.": {
+                                            "type": "string",
+                                            "description": "A situacao da tarefa",
+                                            "example": "Em Aberto"
+                                        },
+                                        "id_clb": {
+                                            "type": "string",
+                                            "description": "ID do Colaborador associado a Tarefa",
+                                            "example": "1"
+                                        },
+                                        "descricao_tarefa": {
+                                            "type": "string",
+                                            "description": "Descrição da Tarefa",
+                                            "example": "Escreva a Descrição Aqui"
+                                        },
+                                        "prioridade_tarefa": {
+                                            "type": "string",
+                                            "description": "Prioridade da tarefa",
+                                            "example": "Alta"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time que a tarefa esta associada",
+                                            "example": "1"
+                                        },
+                                        "solicitante_tarefa": {
+                                            "type": "string",
+                                            "description": "Nome do Solicitante da tarefa",
+                                            "example": "Roberto"
+                                        },
+                                        "assunto_tarefa": {
+                                            "type": "string",
+                                            "description": "assunto da Tarefa",
+                                            "example": "Assunto"
+                                        },
+                                        "prazo_tarefa": {
+                                            "type": "string",
+                                            "description": "prazo para entregar a tarefa",
+                                            "example": "12/07/2024"
+                                        },
+                                        "tempo_estimado_tarefa": {
+                                            "type": "string",
+                                            "description": "Tempo estimado do tempo de execução da tarefa",
+                                            "example": "02:15"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tarefa não encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "sem resultados"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Tarefas"
+                ]
+            },
+            "patch": {
+                "summary": "Alterar Tarefa por ID",
+                "description": "Tarefa time existente no sistema.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do Tarefa a ser alterado"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Tarefa": {
+                                        "type": "object",
+                                        "properties": {
+                                            "situacao_tarefa.": {
+                                                "type": "string",
+                                                "description": "A situacao da tarefa",
+                                                "example": "Em Aberto"
+                                            },
+                                            "id_clb": {
+                                                "type": "string",
+                                                "description": "ID do Colaborador associado a Tarefa",
+                                                "example": "1"
+                                            },
+                                            "descricao_tarefa": {
+                                                "type": "string",
+                                                "description": "Descrição da Tarefa",
+                                                "example": "Escreva a Descrição Aqui"
+                                            },
+                                            "prioridade_tarefa": {
+                                                "type": "string",
+                                                "description": "Prioridade da tarefa",
+                                                "example": "Alta"
+                                            },
+                                            "id_time": {
+                                                "type": "string",
+                                                "description": "ID Time que a tarefa esta associada",
+                                                "example": "1"
+                                            },
+                                            "solicitante_tarefa": {
+                                                "type": "string",
+                                                "description": "Nome do Solicitante da tarefa",
+                                                "example": "Roberto"
+                                            },
+                                            "assunto_tarefa": {
+                                                "type": "string",
+                                                "description": "assunto da Tarefa",
+                                                "example": "Assunto"
+                                            },
+                                            "prazo_tarefa": {
+                                                "type": "string",
+                                                "description": "prazo para entregar a tarefa",
+                                                "example": "12/07/2024"
+                                            },
+                                            "tempo_estimado_tarefa": {
+                                                "type": "string",
+                                                "description": "Tempo estimado do tempo de execução da tarefa",
+                                                "example": "02:15"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tarefa alterada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "Tarefa alterada"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Tarefas"
+                ]
+            },
+            "delete": {
+                "summary": "Remover Tarefa por ID",
+                "description": "Remover Tarefa com o ID fornecido.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID do tarefa a ser alterada"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tarefa removida com Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "removido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Erro ao remover Tarefa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Mensagem de erro"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Tarefas"
+                ]
+            }
+        },
+        "/api/tarefas/novaTarefa": {
+            "post": {
+                "summary": "Inserir nova Tarefa",
+                "description": "Inserir nova Tarefa ao sistema.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Tarefa": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id_tarefa": {
+                                                "type": "integer",
+                                                "description": "O identificador único da tarefa",
+                                                "example": 1
+                                            },
+                                            "situacao_tarefa.": {
+                                                "type": "string",
+                                                "description": "A situacao da tarefa",
+                                                "example": "Em Aberto"
+                                            },
+                                            "id_clb": {
+                                                "type": "string",
+                                                "description": "ID do Colaborador associado a Tarefa",
+                                                "example": "1"
+                                            },
+                                            "descricao_tarefa": {
+                                                "type": "string",
+                                                "description": "Descrição da Tarefa",
+                                                "example": "Escreva a Descrição Aqui"
+                                            },
+                                            "prioridade_tarefa": {
+                                                "type": "string",
+                                                "description": "Prioridade da tarefa",
+                                                "example": "Alta"
+                                            },
+                                            "id_time": {
+                                                "type": "string",
+                                                "description": "ID Time que a tarefa esta associada",
+                                                "example": "1"
+                                            },
+                                            "solicitante_tarefa": {
+                                                "type": "string",
+                                                "description": "Nome do Solicitante da tarefa",
+                                                "example": "Roberto"
+                                            },
+                                            "assunto_tarefa": {
+                                                "type": "string",
+                                                "description": "assunto da Tarefa",
+                                                "example": "Assunto"
+                                            },
+                                            "prazo_tarefa": {
+                                                "type": "string",
+                                                "description": "prazo para entregar a tarefa",
+                                                "example": "12/07/2024"
+                                            },
+                                            "tempo_estimado_tarefa": {
+                                                "type": "string",
+                                                "description": "Tempo estimado do tempo de execução da tarefa",
+                                                "example": "02:15"
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "nome_clb",
+                                    "email_clb",
+                                    "id_time",
+                                    "funcao_clb"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tarefa inserida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "Tarefa inserida"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Tarefas"
+                ]
+            }
+        },
+        "/api/Prazo": {
+            "get": {
+                "summary": "Obtém a lista de tarefas proximas do prazo",
+                "description": "Retorna uma lista de todas as tarefas proximas ao prazo.",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a lista de tarefas proximas ao prazo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id_tarefa": {
+                                            "type": "integer",
+                                            "description": "O identificador único da tarefa",
+                                            "example": 1
+                                        },
+                                        "situacao_tarefa.": {
+                                            "type": "string",
+                                            "description": "A situacao da tarefa",
+                                            "example": "Em Aberto"
+                                        },
+                                        "id_clb": {
+                                            "type": "string",
+                                            "description": "ID do Colaborador associado a Tarefa",
+                                            "example": "1"
+                                        },
+                                        "descricao_tarefa": {
+                                            "type": "string",
+                                            "description": "Descrição da Tarefa",
+                                            "example": "Escreva a Descrição Aqui"
+                                        },
+                                        "prioridade_tarefa": {
+                                            "type": "string",
+                                            "description": "Prioridade da tarefa",
+                                            "example": "Alta"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time que a tarefa esta associada",
+                                            "example": "1"
+                                        },
+                                        "solicitante_tarefa": {
+                                            "type": "string",
+                                            "description": "Nome do Solicitante da tarefa",
+                                            "example": "Roberto"
+                                        },
+                                        "assunto_tarefa": {
+                                            "type": "string",
+                                            "description": "assunto da Tarefa",
+                                            "example": "Assunto"
+                                        },
+                                        "prazo_tarefa": {
+                                            "type": "string",
+                                            "description": "prazo para entregar a tarefa",
+                                            "example": "12/07/2024"
+                                        },
+                                        "tempo_estimado_tarefa": {
+                                            "type": "string",
+                                            "description": "Tempo estimado do tempo de execução da tarefa",
+                                            "example": "02:15"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Tarefas"
+                ]
+            }
+        },
+        "/api/tarefas/Prazo/{id}": {
+            "get": {
+                "summary": "Obtém uma tarefa proxima ao prazo por ID da equipe",
+                "description": "Retorna os detalhes da tarefa proxima ao prazo por ID da equipe.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID da Tarefa a ser obtida"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a Tarefa por ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id_tarefa": {
+                                            "type": "integer",
+                                            "description": "O identificador único da tarefa",
+                                            "example": 1
+                                        },
+                                        "situacao_tarefa.": {
+                                            "type": "string",
+                                            "description": "A situacao da tarefa",
+                                            "example": "Em Aberto"
+                                        },
+                                        "id_clb": {
+                                            "type": "string",
+                                            "description": "ID do Colaborador associado a Tarefa",
+                                            "example": "1"
+                                        },
+                                        "descricao_tarefa": {
+                                            "type": "string",
+                                            "description": "Descrição da Tarefa",
+                                            "example": "Escreva a Descrição Aqui"
+                                        },
+                                        "prioridade_tarefa": {
+                                            "type": "string",
+                                            "description": "Prioridade da tarefa",
+                                            "example": "Alta"
+                                        },
+                                        "id_time": {
+                                            "type": "string",
+                                            "description": "ID Time que a tarefa esta associada",
+                                            "example": "1"
+                                        },
+                                        "solicitante_tarefa": {
+                                            "type": "string",
+                                            "description": "Nome do Solicitante da tarefa",
+                                            "example": "Roberto"
+                                        },
+                                        "assunto_tarefa": {
+                                            "type": "string",
+                                            "description": "assunto da Tarefa",
+                                            "example": "Assunto"
+                                        },
+                                        "prazo_tarefa": {
+                                            "type": "string",
+                                            "description": "prazo para entregar a tarefa",
+                                            "example": "12/07/2024"
+                                        },
+                                        "tempo_estimado_tarefa": {
+                                            "type": "string",
+                                            "description": "Tempo estimado do tempo de execução da tarefa",
+                                            "example": "02:15"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tarefa não encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "sem resultados"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Tarefas"
+                ]
+            }
+        }, 
+        "/api/login": {
+            "get": {
+                "summary": "Obtém a lista de usuarios do sistema",
+                "description": "Retorna uma lista de Email dos usuarios.",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a lista de usuarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "usu_email": {
+                                            "type": "string",
+                                            "description": "Email do usuario",
+                                            "example": "teste@teste.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Usuarios"
+                ]
+            },
+            "post": {
+                "summary": "Valida o Login do Usuario",
+                "description": "Valida o Login do Usuario",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "usu_email": {
+                                        "type": "string",
+                                        "description": "email do usuario",
+                                        "example": "jp@email.com"
+                                    },
+                                    "usu_senha": {
+                                        "type": "string",
+                                        "description": "senha do usuario",
+                                        "example": "123"
+                                    }
+                                },
+                                "required": [
+                                    "usu_email","usu_senha"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "validado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/login/{id}": {
+            "get": {
+                "summary": "Obtém usuario por ID",
+                "description": "Retorna o Email de um Usuario com o ID especificado.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "ID da Tarefa a ser obtida"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso ao obter a Tarefa por ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "usu_email": {
+                                            "type": "string",
+                                            "description": "Email do usuario",
+                                            "example": "teste@teste.com"
+                                        }             
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "sem resultados"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        },
+        "/api/InserirUsuario": {
+            "post": {
+                "summary": "Inserir novo usuario ao sistema",
+                "description": "Inserir novo usuario ao sistema",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "usu_nome": {
+                                        "type": "string",
+                                        "description": "nome do usuario",
+                                        "example": "João da Silva"
+                                    },
+                                    "usu_email": {
+                                        "type": "string",
+                                        "description": "email do usuario",
+                                        "example": "JP@Email.com"
+                                    },
+                                    "usu_senha": {
+                                        "type": "string",
+                                        "description": "senha do usuario",
+                                        "example": "123"
+                                    }
+                                },
+                                "required": [
+                                    "usu_email","usu_senha","usu_nome"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Inserido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "validado"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultado": {
+                                            "type": "string",
+                                            "example": "invalido"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Usuarios"
+                ]
+            }
+        }
+    }
+}

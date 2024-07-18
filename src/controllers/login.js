@@ -1,5 +1,5 @@
 const { _inserirUsuario, _validarUsuario } = require("../querys/Login");
-const admin = require('../database/firebaseAdmin');  // Corrija a importação
+const admin = require('../database/firebaseAdmin');
 
 async function telaInicial(req, res) {
     const usuario = req.cookies.usuario;

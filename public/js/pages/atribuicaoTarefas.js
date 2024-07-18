@@ -415,8 +415,6 @@ function TarefasComPrazo(){
         url: `/api/prazo`,
         contentType: 'application/json',
         success: function (r) {    
-            console.log(r);
-
             if (r != null) {
                 r.forEach(async t => {
                     const equipe = await RecuperarEquipe(t.id_time);

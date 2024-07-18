@@ -45,20 +45,17 @@ if (loginButton) {
   });
 }
 
-// Solicitar permissão para notificações
+
 Notification.requestPermission().then((permission) => {
   if (permission === 'granted') {
-    console.log('Notification permission granted.');
+    //console.log('Notification permission granted.');
   } else {
-    console.error('Unable to get permission to notify.');
+    //console.error('Unable to get permission to notify.');
   }
 });
 
-// Registrar o Service Worker para FCM
 navigator.serviceWorker.register('/public/js/pages/firebase-messaging-sw.js')
   .then((registration) => {
-    console.log('Service Worker registrado com sucesso:', registration);
-    // Passar a instância do Service Worker para o Messaging
     return getToken(messaging, {
       vapidKey: 'BGzyNNV4B-3EypCffvD0T0jwpEhWLVuR678e0pKvYUWpQWt4uePAUbjLsWMFtXLgKGlBkGJs-EQWmJisQbi_TRw',
       serviceWorkerRegistration: registration
@@ -74,9 +71,9 @@ navigator.serviceWorker.register('/public/js/pages/firebase-messaging-sw.js')
         body: JSON.stringify({ token: currentToken })
       }).then(response => {
         if (response.ok) {
-          console.log('Token FCM salvo com sucesso no backend');
+          //console.log('Token FCM salvo com sucesso no backend');
         } else {
-          console.error('Erro ao salvar o token FCM no backend');
+          //console.error('Erro ao salvar o token FCM no backend');
         }
       });
     } else {

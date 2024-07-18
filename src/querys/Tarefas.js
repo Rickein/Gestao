@@ -163,7 +163,6 @@ async function consultarPrazoTarefaEquipeAPI(req,res){
             const data = doc.data();
             const prazoData = new Date(data.prazo_tarefa.seconds * 1000);
 
-            // Filtra as tarefas que estão a menos de 24 horas do prazo
             if (prazoData >= agora && prazoData <= prazo24Horas) {
                 return {
                     id: doc.id,
@@ -171,8 +170,8 @@ async function consultarPrazoTarefaEquipeAPI(req,res){
                     prazo_tarefa: formatDate(data.prazo_tarefa)
                 };
             }
-            return null; // Retorna null para tarefas fora do prazo
-        }).filter(doc => doc !== null); // Remove nulls do array
+            return null; 
+        }).filter(doc => doc !== null); 
 
         res.json(documentos);
     } catch (error) {
@@ -193,7 +192,6 @@ async function consultarPrazoTarefaAPI(req,res){
             const data = doc.data();
             const prazoData = new Date(data.prazo_tarefa.seconds * 1000);
 
-            // Filtra as tarefas que estão a menos de 24 horas do prazo
             if (prazoData >= agora && prazoData <= prazo24Horas) {
                 return {
                     id: doc.id,
@@ -201,8 +199,8 @@ async function consultarPrazoTarefaAPI(req,res){
                     prazo_tarefa: formatDate(data.prazo_tarefa)
                 };
             }
-            return null; // Retorna null para tarefas fora do prazo
-        }).filter(doc => doc !== null); // Remove nulls do array
+            return null; 
+        }).filter(doc => doc !== null); 
         res.json(documentos);
     } catch (error) {
         console.error('Erro ao buscar Tarefas:', error);
