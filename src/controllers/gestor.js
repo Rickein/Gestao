@@ -29,7 +29,7 @@ async function telaInicial(req, res) {
             console.error('Erro ao enviar mensagem:', error);
         }
     } else {
-        console.warn('FCM Token não encontrado.');
+        //console.warn('FCM Token não encontrado.');
     }
 
     res.render('Gestor', { Tarefas: tarefas, Times: times, Colaboradores: colaboradores, Usuario: usuario });

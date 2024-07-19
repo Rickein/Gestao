@@ -3,7 +3,7 @@ $(document).ready(function() {
     const timeParam = urlParams.get('Time');
 
     if (timeParam) {
-        TarefasComPrazoTime(timeParam);
+        //TarefasComPrazoTime(timeParam);
     } else {
         TarefasComPrazo();
     }
